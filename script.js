@@ -22,10 +22,37 @@ const defaultTasks = [
   },
   {
     id: crypto.randomUUID(),
+    title: 'Corrida 5km',
+    category: 'Evento',
+    status: 'pendente',
+    date: new Date(Date.now() + 172800000).toISOString().split('T')[0],
+    time: '06:30',
+    description: 'Participar da corrida comunitária e manter a rotina de treino.'
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'Culto Aniversário da Igreja',
+    category: 'Igreja',
+    status: 'pendente',
+    date: new Date(Date.now() + 259200000).toISOString().split('T')[0],
+    time: '19:00',
+    description: 'Preparar presença, oração e organização para a celebração especial.'
+  },
+  {
+    id: crypto.randomUUID(),
+    title: 'Ensaio dos músicos',
+    category: 'Louvor',
+    status: 'em andamento',
+    date: new Date(Date.now() + 345600000).toISOString().split('T')[0],
+    time: '20:00',
+    description: 'Repetir repertório, ajustes de tempo e preparação para o louvor.'
+  },
+  {
+    id: crypto.randomUUID(),
     title: 'Responder e-mails e pendências',
     category: 'Tarefa',
     status: 'pendente',
-    date: new Date(Date.now() + 172800000).toISOString().split('T')[0],
+    date: new Date(Date.now() + 432000000).toISOString().split('T')[0],
     time: '14:00',
     description: 'Atualizar comunicação com clientes, colegas e acompanhamento de tarefas.'
   }
@@ -48,7 +75,7 @@ const nextMonthBtn = document.querySelector('#nextMonthBtn');
 
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, 1);
+    const request = indexedDB.open(DB_NAME, 2);
 
     request.onupgradeneeded = (event) => {
       const db = event.target.result;
@@ -57,6 +84,11 @@ function openDatabase() {
         const store = db.createObjectStore(STORE_NAME, { keyPath: 'id' });
         store.createIndex('date', 'date', { unique: false });
         store.createIndex('category', 'category', { unique: false });
+      }
+
+      if (event.oldVersion < 2 && db.objectStoreNames.contains(STORE_NAME)) {
+        const store = event.target.transaction.objectStore(STORE_NAME);
+        store.clear();
       }
     };
 
@@ -124,6 +156,12 @@ function getCategoryColor(category) {
       return '#3b82f6';
     case 'Reunião':
       return '#f59e0b';
+    case 'Evento':
+      return '#ec4899';
+    case 'Igreja':
+      return '#16a34a';
+    case 'Louvor':
+      return '#f97316';
     default:
       return '#10b981';
   }
