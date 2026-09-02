@@ -64,6 +64,13 @@ textarea {
 h1 {
   margin: 0;
   font-size: clamp(2rem, 3vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+h2 {
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .clock-card {
@@ -76,6 +83,12 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  transition: all 0.3s ease;
+}
+
+.clock-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(79, 70, 229, 0.15);
 }
 
 .clock-card span {
@@ -108,6 +121,13 @@ h1 {
   border-radius: 18px;
   padding: 20px 18px;
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(79, 70, 229, 0.15);
 }
 
 .stat-card span {
@@ -145,6 +165,11 @@ h1 {
   border-radius: 24px;
   box-shadow: var(--shadow);
   padding: 22px;
+  transition: box-shadow 0.3s ease;
+}
+
+.panel:hover {
+  box-shadow: 0 20px 50px rgba(79, 70, 229, 0.15);
 }
 
 .panel-header {
@@ -200,7 +225,14 @@ h1 {
   padding: 12px 14px;
   color: var(--text);
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+}
+
+.task-form input:hover,
+.task-form select:hover,
+.task-form textarea:hover {
+  border-color: var(--primary);
+  background: #ffffff;
 }
 
 .task-form input:focus,
@@ -208,6 +240,18 @@ h1 {
 .task-form textarea:focus {
   border-color: rgba(79, 70, 229, 0.5);
   box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+}
+
+.task-form input:focus-visible,
+.task-form select:focus-visible,
+.task-form textarea:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.task-form textarea {
+  resize: vertical;
+  font-family: "Inter", sans-serif;
 }
 
 .two-columns {
@@ -223,7 +267,7 @@ h1 {
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .primary-btn {
@@ -231,13 +275,28 @@ h1 {
   color: white;
   font-weight: 700;
   padding: 14px 18px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
 }
 
-.primary-btn:hover,
-.filter-btn:hover,
-.done-btn:hover,
-.delete-btn:hover {
-  transform: translateY(-1px);
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.primary-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .list-header {
@@ -259,11 +318,23 @@ h1 {
   color: var(--primary-strong);
   padding: 8px 12px;
   font-weight: 600;
+  position: relative;
+}
+
+.filter-btn:hover {
+  background: #e0e7ff;
+  transform: translateY(-1px);
 }
 
 .filter-btn.active {
   background: var(--primary);
   color: white;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.filter-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .task-list {
@@ -299,6 +370,18 @@ h1 {
   cursor: pointer;
   font-size: 1.3rem;
   line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.calendar-nav button:hover {
+  background: #eef3ff;
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.calendar-nav button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .calendar-grid {
@@ -334,7 +417,13 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.calendar-day:hover {
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.12);
+  border-color: rgba(79, 70, 229, 0.3);
 }
 
 .calendar-day.other-month {
@@ -372,6 +461,12 @@ h1 {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.calendar-task-pill:hover {
+  filter: brightness(1.1);
 }
 
 .calendar-more {
@@ -385,10 +480,16 @@ h1 {
   grid-template-columns: minmax(0, 1.5fr) minmax(160px, 0.8fr) auto;
   gap: 14px;
   align-items: center;
-  background: var(--panel-alt);
+  background: linear-gradient(135deg, #eef3ff 0%, rgba(79, 70, 229, 0.02) 100%);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 16px 18px;
+  transition: all 0.3s ease;
+}
+
+.task-item:hover {
+  border-color: rgba(79, 70, 229, 0.3);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
 }
 
 .task-heading {
@@ -461,11 +562,31 @@ h1 {
   font-weight: 700;
 }
 
+.done-btn:hover {
+  background: rgba(16, 185, 129, 0.25);
+  transform: translateY(-1px);
+}
+
+.done-btn:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
 .delete-btn {
   background: rgba(239, 68, 68, 0.1);
   color: var(--danger);
   padding: 10px 12px;
   font-weight: 700;
+}
+
+.delete-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: translateY(-1px);
+}
+
+.delete-btn:focus-visible {
+  outline: 2px solid var(--danger);
+  outline-offset: 2px;
 }
 
 .empty-state {
@@ -493,7 +614,16 @@ h1 {
   }
 
   .stats-grid {
-    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .panel {
+    border-radius: 16px;
+    padding: 16px;
   }
 
   .two-columns,
